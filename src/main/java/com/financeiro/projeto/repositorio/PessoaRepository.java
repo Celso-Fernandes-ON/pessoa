@@ -1,0 +1,12 @@
+package com.financeiro.projeto.repositorio;
+
+import com.financeiro.projeto.entities.Pessoa;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
+
+    Page<Pessoa> findAllByAtivoTrue(Pageable paginacao);
+
+}
