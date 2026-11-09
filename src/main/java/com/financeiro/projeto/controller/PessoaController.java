@@ -1,5 +1,6 @@
 package com.financeiro.projeto.controller;
 
+import com.financeiro.projeto.dto.DadosAtualizarPessoas;
 import com.financeiro.projeto.dto.DadosCadastroPessoa;
 import com.financeiro.projeto.dto.DadosDetalhamentoPessoa;
 import com.financeiro.projeto.dto.DadosListagemPessoa;
@@ -37,7 +38,17 @@ public class PessoaController {
             size = 10, sort = {"nome"}) Pageable peginacao){
         Page<DadosListagemPessoa> page =
         services.listarPessoa(peginacao);
-    return ResponseEntity.ok(page);
+        return ResponseEntity.ok(page);
+    }
+    @GetMapping("/{id}")
+    public ResponseEntity detalhar(@PathVariable Long id){
+        var pessoa = services.detalharPessoa(id);
+        return ResponseEntity.ok(new DadosDetalhamentoPessoa(pessoa));
+    }
+    @PutMapping()
+    public ResponseEntity atualizar(@RequestBody @Valid DadosAtualizarPessoas dados){
+        services.atualizarPessoa(dados);
+        return "asdad";
     }
 
 }

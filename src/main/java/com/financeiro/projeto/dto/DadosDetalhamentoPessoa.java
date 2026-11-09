@@ -4,14 +4,11 @@ import com.financeiro.projeto.entities.Pessoa;
 
 public record DadosDetalhamentoPessoa(
 
-        //Long id,
+        Long id,
         String nome
         ) {
 
     public DadosDetalhamentoPessoa(Pessoa pessoa) {
-        this(
-                //pessoa.getId(),
-                pessoa.getNome()
-        );
+        this(pessoa.getId(),pessoa.getNome());
     }
 }

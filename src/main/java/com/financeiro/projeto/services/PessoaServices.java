@@ -1,11 +1,13 @@
 package com.financeiro.projeto.services;
 
 
+import com.financeiro.projeto.dto.DadosAtualizarPessoas;
 import com.financeiro.projeto.dto.DadosListagemPessoa;
 import com.financeiro.projeto.dto.DadosCadastroPessoa;
 import com.financeiro.projeto.entities.Pessoa;
 import com.financeiro.projeto.repositorio.PessoaRepository;
 import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,5 +26,16 @@ public class PessoaServices {
     }
     public Page<DadosListagemPessoa> listarPessoa(Pageable paginacao){
         return repository.findAllByAtivoTrue(paginacao).map(DadosListagemPessoa::new);
+    }
+
+    public Pessoa detalharPessoa(Long id) {
+        return repository.getReferenceById(id);
+    }
+
+    public void atualizarPessoa(@Valid DadosAtualizarPessoas dados) {
+        var pessoa = repository.getReferenceById(dados.id());
+        pessoa.atualizarInformacoesPesso(dados);
+        return pessoa;
+
     }
 }
